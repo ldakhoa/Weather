@@ -251,6 +251,7 @@ extension WeatherListViewController: UISearchBarDelegate {
     }
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty { presenter.cleanup() }
         NSObject.cancelPreviousPerformRequests(
             withTarget: self,
             selector: #selector(handleSearchForecast),

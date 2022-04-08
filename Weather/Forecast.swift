@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Forecast: Decodable {
+public struct Forecast: Decodable {
     let dateTime: Double
     let temperature: Temperature
     let pressure: Int

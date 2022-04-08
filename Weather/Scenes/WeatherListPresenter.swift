@@ -47,6 +47,9 @@ final class WeatherListPresenter: WeatherListPresentable {
 
     /// A view displays a dedicated state, it usually cover other view's content.
     private(set) var statefulState: StatefulState = .findCity
+    
+    /// A cache layer that use to cache forecasts data to reduce API requests.
+    private let cache = WeatherListCache()
 
     // MARK: - Init
 
@@ -67,37 +70,41 @@ final class WeatherListPresenter: WeatherListPresentable {
     /// Reload all data of the WeatherList's services.
     func reloadData(city: String = "", shouldShowLoading: Bool) {
         if shouldShowLoading { view?.toggleLoading(true) }
-        weatherListUseCase.weather(
-            byKeyword: city,
-            numberOfDays: 7,
-            degreeUnit: degreeUnit
-        ) { [weak self] result in
-            guard let self = self else { return }
-            DispatchQueue.main.async {
-                self.view?.toggleLoading(false)
-                switch result {
-                case let .success(forecasts):
-                    UserDefaultManagement.lastKeyword = city
-                    self.statefulState = .onHide
-                    self.forecasts = forecasts
-                case let .failure(error):
-                    self.view?.showAlert(withTitle: error.description)
-                    self.statefulState = .tryAgain
-                    self.forecasts.removeAll()
+        if let forecasts = cache.forecasts(fromCity: city) {
+            print("Load from cache")
+            self.view?.toggleLoading(false)
+            self.statefulState = .onHide
+            self.forecasts = forecasts
+            self.view?.reloadData()
+        } else {
+            weatherListUseCase.weather(
+                byKeyword: city,
+                numberOfDays: 7,
+                degreeUnit: degreeUnit
+            ) { [weak self] result in
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    self.view?.toggleLoading(false)
+                    switch result {
+                    case let .success(forecasts):
+                        UserDefaultManagement.lastKeyword = city
+                        self.statefulState = .onHide
+                        self.forecasts = forecasts
+                        self.cache.add(forecasts, for: city)
+                    case let .failure(error):
+                        self.view?.showAlert(withTitle: error.description)
+                        self.statefulState = .tryAgain
+                        self.forecasts.removeAll()
+                    }
+                    self.view?.reloadData()
                 }
-                self.view?.reloadData()
             }
         }
     }
 
     // MARK: - WeatherListsPresentable
 
-    func viewWillAppear() {
-        let lastKeyword = UserDefaultManagement.lastKeyword
-        if !lastKeyword.isEmpty {
-            reloadData(city: lastKeyword, shouldShowLoading: true)
-        }
-    }
+    func viewWillAppear() {}
 
     func numberOfSections() -> Int {
         1
