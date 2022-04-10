@@ -15,7 +15,7 @@ enum DegreeUnit: String, CustomStringConvertible {
     var description: String {
         switch self {
         case .default:
-            return "K"
+            return "°K"
         case .metric:
             return "°C"
         case .imperial:

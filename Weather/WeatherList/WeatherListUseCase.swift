@@ -17,7 +17,7 @@ protocol WeatherListUseCase {
     ///   - numberOfDays: Number of forecast days.
     ///   - degreeUnit: The temperature unit.
     ///   - promise: A promise to be fulfilled with a result is the list of forecast.
-    func weather(
+    func forecasts(
         byKeyword keyword: String,
         numberOfDays: Int,
         degreeUnit: DegreeUnit,
@@ -42,7 +42,7 @@ struct DefaultWeatherListUseCase: WeatherListUseCase {
 
     // MARK: - WeatherListUseCase
 
-    func weather(
+    func forecasts(
         byKeyword keyword: String,
         numberOfDays: Int,
         degreeUnit: DegreeUnit,

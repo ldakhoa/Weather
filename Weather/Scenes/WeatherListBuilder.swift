@@ -8,7 +8,7 @@
 import UIKit
 
 /// An object helps to build a scene that displays the weather lists.
-struct WeatherListingBuilder {
+struct WeatherListBuilder {
     /// Build a scene that displays the details of weather listing.
     /// - Returns: A view controller displays the details of weather listing.
     func build() -> UIViewController {

@@ -77,25 +77,25 @@ final class WeatherListPresenter: WeatherListPresentable {
             self.forecasts = forecasts
             self.view?.reloadData()
         } else {
-            weatherListUseCase.weather(
+            weatherListUseCase.forecasts(
                 byKeyword: city,
                 numberOfDays: 7,
                 degreeUnit: degreeUnit
             ) { [weak self] result in
                 guard let self = self else { return }
+                switch result {
+                case let .success(forecasts):
+                    UserDefaultManagement.lastKeyword = city
+                    self.statefulState = .onHide
+                    self.forecasts = forecasts
+                    self.cache.add(forecasts, for: city)
+                case let .failure(error):
+                    self.view?.showAlert(withTitle: error.description)
+                    self.statefulState = .tryAgain
+                    self.forecasts.removeAll()
+                }
                 DispatchQueue.main.async {
                     self.view?.toggleLoading(false)
-                    switch result {
-                    case let .success(forecasts):
-                        UserDefaultManagement.lastKeyword = city
-                        self.statefulState = .onHide
-                        self.forecasts = forecasts
-                        self.cache.add(forecasts, for: city)
-                    case let .failure(error):
-                        self.view?.showAlert(withTitle: error.description)
-                        self.statefulState = .tryAgain
-                        self.forecasts.removeAll()
-                    }
                     self.view?.reloadData()
                 }
             }
@@ -123,7 +123,7 @@ final class WeatherListPresenter: WeatherListPresentable {
         reloadData(city: UserDefaultManagement.lastKeyword, shouldShowLoading: false)
     }
 
-    func searchForecast(byCity city: String) {
+    func searchForecasts(byCity city: String) {
         reloadData(city: city, shouldShowLoading: true)
     }
 

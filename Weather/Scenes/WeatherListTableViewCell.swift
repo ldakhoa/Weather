@@ -16,37 +16,37 @@ final class WeatherListTableViewCell: UITableViewCell {
 
     // MARK: - UIs
 
-    private lazy var dateLabel: AccessibilityLabel = {
+    private(set) lazy var dateLabel: AccessibilityLabel = {
         let view = AccessibilityLabel()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
-    private lazy var averageTemperatureLabel: AccessibilityLabel = {
+    private(set) lazy var averageTemperatureLabel: AccessibilityLabel = {
         let view = AccessibilityLabel()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
-    private lazy var pressureLabel: AccessibilityLabel = {
+    private(set) lazy var pressureLabel: AccessibilityLabel = {
         let view = AccessibilityLabel()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
-    private lazy var humidityLabel: AccessibilityLabel = {
+    private(set) lazy var humidityLabel: AccessibilityLabel = {
         let view = AccessibilityLabel()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
-    private lazy var descriptionLabel: AccessibilityLabel = {
+    private(set) lazy var descriptionLabel: AccessibilityLabel = {
         let view = AccessibilityLabel()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
-    private lazy var stackView: UIStackView = {
+    private(set) lazy var stackView: UIStackView = {
         let view = UIStackView(arrangedSubviews: [
             dateLabel,
             averageTemperatureLabel,

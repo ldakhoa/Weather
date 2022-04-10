@@ -33,7 +33,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         self.window = window
         // Make initial view controller.
-        let viewController = WeatherListingBuilder().build()
+        let viewController = WeatherListBuilder().build()
         let navigationController = UINavigationController(rootViewController: viewController)
         // Display the initial view controller.
         window.rootViewController = navigationController

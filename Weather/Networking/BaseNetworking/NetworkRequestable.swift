@@ -37,8 +37,13 @@ public struct DefaultNetworkRequestable: NetworkRequestable {
     public func fetch<T: Decodable>(
         endPoint: APIEndpoint,
         type: T.Type,
-        completion: @escaping (Result<T, NetworkError>) -> Void) {
-
+        completion: @escaping (Result<T, NetworkError>) -> Void
+    ) {
+        guard Reachability.isConnectedToNetwork() else {
+            completion(.failure(.noInternet))
+            return
+        }
+            
         guard let request = endPoint.buildRequest() else {
             completion(.failure(.unableToGenerateURLRequest))
             return
@@ -90,6 +95,8 @@ public struct DefaultNetworkRequestable: NetworkRequestable {
 }
 
 // MARK: - Network Error
+
+/// The network error.
 public enum NetworkError: Error, CustomStringConvertible {
     /// Unable to generate the URL request for the given options.
     case unableToGenerateURLRequest
@@ -105,6 +112,9 @@ public enum NetworkError: Error, CustomStringConvertible {
 
     /// The status code does not indicate success for the specified response.
     case noSuccessResponse(code: String)
+    
+    /// Notify the internet isn't connected.
+    case noInternet
 
     public var description: String {
         switch self {
@@ -133,6 +143,8 @@ public enum NetworkError: Error, CustomStringConvertible {
             return NSLocalizedString(
                 "Error occured. Error: \(error)",
                 comment: "Unable to fetch with the specified underlying error.")
+        case .noInternet:
+            return NSLocalizedString("The internet isn't connected, check your connection, then try again", comment: "")
         }
     }
 }

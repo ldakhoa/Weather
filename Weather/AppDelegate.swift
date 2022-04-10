@@ -27,7 +27,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             let window = UIWindow()
             self.window = window
-            let viewController = WeatherListingBuilder().build()
+            let viewController = WeatherListBuilder().build()
             let navigationController = UINavigationController(rootViewController: viewController)
             window.rootViewController = navigationController
             window.makeKeyAndVisible()

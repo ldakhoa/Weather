@@ -31,7 +31,7 @@ protocol WeatherListPresentable {
 
     /// Search the forecast data by city.
     /// - Parameter city: The name of the city.
-    func searchForecast(byCity city: String)
+    func searchForecasts(byCity city: String)
 
     /// Cleanup the table view.
     func cleanup()
@@ -166,7 +166,7 @@ final class WeatherListViewController: UIViewController, WeatherListViewable {
     // MARK: - WeatherListViewable
 
     func reloadData() {
-        tableView.reloadData()
+        self.tableView.reloadData()
     }
 
     func toggleLoading(_ isEnabled: Bool) {
@@ -270,6 +270,6 @@ extension WeatherListViewController: UISearchBarDelegate {
         else {
             return
         }
-        presenter.searchForecast(byCity: query)
+        presenter.searchForecasts(byCity: query)
     }
 }

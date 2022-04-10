@@ -31,7 +31,7 @@ final class WeatherListCache {
         guard dict[city] == nil else {
             return
         }
-        print("Append \(item) to cache")
+        print("Append to cache")
         dict[city] = item
     }
     

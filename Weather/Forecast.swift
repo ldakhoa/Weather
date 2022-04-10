@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Forecast: Decodable {
+public struct Forecast: Decodable, Equatable {
     let dateTime: Double
     let temperature: Temperature
     let pressure: Int
@@ -16,12 +16,21 @@ public struct Forecast: Decodable {
     let speed: Float
 
     private enum CodingKeys: String, CodingKey {
-        case dateTime = "dt", temperature = "temp", pressure, humidity, weather, speed
+        case dateTime = "dt"
+        case temperature = "temp"
+        case pressure, humidity, weather, speed
+    }
+    
+    public static func == (lhs: Forecast, rhs: Forecast) -> Bool {
+        lhs.dateTime == rhs.dateTime &&
+        lhs.pressure == rhs.pressure &&
+        lhs.humidity == rhs.humidity &&
+        lhs.speed == rhs.speed
     }
 }
 
-struct ForecastResponse: Decodable {
-    let city: City
-    let cnt: Int
-    let list: [Forecast]
+public struct ForecastResponse: Decodable {
+    public let city: City
+    public let cnt: Int
+    public let list: [Forecast]
 }
