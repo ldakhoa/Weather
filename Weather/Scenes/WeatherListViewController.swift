@@ -185,7 +185,9 @@ final class WeatherListViewController: UIViewController, WeatherListViewable {
             preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
         alertController.addAction(okAction)
-        present(alertController, animated: true)
+        DispatchQueue.main.async {
+            self.present(alertController, animated: true)
+        }
     }
 
     func toggleStatefulView(withState state: StatefulState) {
