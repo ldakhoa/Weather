@@ -217,14 +217,14 @@
 		6ACE3B7027FB4DFC009DAAF5 /* Weather */ = {
 			isa = PBXGroup;
 			children = (
-				6AB0BA062800C9DD001E5B07 /* Caching */,
-				6ACE3BBA27FB8530009DAAF5 /* Utils */,
-				6ACE3BB727FB8103009DAAF5 /* Views */,
-				6ACE3BB427FB7498009DAAF5 /* Networking */,
 				6ACE3BA127FB4E7A009DAAF5 /* App */,
+				6AB0BA062800C9DD001E5B07 /* Caching */,
+				6ACE3BB427FB7498009DAAF5 /* Networking */,
+				6ACE3BA427FB4E8C009DAAF5 /* Resources */,
 				6ACE3BA227FB4E80009DAAF5 /* Scenes */,
 				6ACE3BA327FB4E86009DAAF5 /* UseCases */,
-				6ACE3BA427FB4E8C009DAAF5 /* Resources */,
+				6ACE3BBA27FB8530009DAAF5 /* Utils */,
+				6ACE3BB727FB8103009DAAF5 /* Views */,
 			);
 			path = Weather;
 			sourceTree = "<group>";
