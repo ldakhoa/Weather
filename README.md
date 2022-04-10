@@ -1,7 +1,7 @@
 # Demo
 
 <p align="center">
-	<img width="160" height="320" src="Assets/demo.gif" >
+	<img width="300" src="Assets/demo.gif" >
 </p>
 
 # Installation
