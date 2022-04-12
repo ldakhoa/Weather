@@ -76,6 +76,6 @@ More info: https://martinfowler.com/bliki/TestDouble.html
 - The cache layer is using the hash map to get and set data with fast access, insert time complexity constant time in the best case and linear time in the worst case.
 - The cache layer has default expired time is 10 minutes but we can modify it as we want.
 
-# Test Coverage: 86.8%
+# Test Coverage: 86.2%
 
 <img src="Assets/test_coverage.png" />
